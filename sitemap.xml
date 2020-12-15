@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://example.com/2020/12/15/linux-%E5%AE%89%E8%A3%85nodejs/</loc>
+    
+    <lastmod>2020-12-15</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://example.com/2020/12/15/linux%E8%BD%AF%E9%93%BE%E6%8E%A5/</loc>
+    
+    <lastmod>2020-12-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://example.com/2020/12/14/hello-world/</loc>
     
-    <lastmod>2020-12-14</lastmod>
+    <lastmod>2020-12-15</lastmod>
     
   </url>
   
@@ -60,22 +74,29 @@
 
   <url>
     <loc>http://example.com/</loc>
-    <lastmod>2020-12-14</lastmod>
+    <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://example.com/tags/git/</loc>
-    <lastmod>2020-12-14</lastmod>
+    <loc>http://example.com/tags/linux/</loc>
+    <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/linux/</loc>
-    <lastmod>2020-12-14</lastmod>
+    <loc>http://example.com/tags/git/</loc>
+    <lastmod>2020-12-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.com/tags/nodejs/</loc>
+    <lastmod>2020-12-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
