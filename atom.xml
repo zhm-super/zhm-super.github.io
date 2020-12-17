@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-17T09:49:49.793Z</updated>
+  <updated>2020-12-17T10:00:44.375Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python实现团队游戏小程序</title>
+    <link href="http://example.com/2020/12/17/python%E5%AE%9E%E7%8E%B0%E5%9B%A2%E9%98%9F%E6%B8%B8%E6%88%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    <id>http://example.com/2020/12/17/python%E5%AE%9E%E7%8E%B0%E5%9B%A2%E9%98%9F%E6%B8%B8%E6%88%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F/</id>
+    <published>2020-12-17T10:00:11.000Z</published>
+    <updated>2020-12-17T10:00:44.375Z</updated>
+    
+    <content type="html"><![CDATA[<p>import time</p><p>import random</p><p>def changePoint(playerPoints: dict):</p><p>​    str = input(‘输入参与者得分情况（add(sub) name point）’)</p><p>​    cmd = str.split()</p><p>​    if(cmd[1] in playerPoints):</p><p>​        if(cmd[0] == ‘add’):</p><p>​            playerPoints[cmd[1]] += int(cmd[2])</p><p>​            print(cmd[1], ‘增加’, cmd[2], ‘分\n’)</p><p>​        elif(cmd[0] == ‘sub’):</p><p>​            playerPoints[cmd[1]] -= int(cmd[2])</p><p>​            print(cmd[1], ‘减少’, cmd[2], ‘分\n’)</p><p>​    else:</p><p>​        print(‘参与者姓名不存在！请重新输入\n’)</p><p>def showPlayerPoints(playerPoints: dict):</p><p>​    print(‘姓名\t得分’)</p><p>​    for p in playerPoints:</p><p>​        print(p, ‘\t’, playerPoints[p])</p><p>​    print()</p><p>def paintAndGuess(playerPoints: dict, orinArr: list):</p><p>​    print(‘<strong><strong>****</strong></strong>欢迎来到你画我猜游戏**<strong><strong>**</strong></strong>‘)</p><p>​    probNum = int(input(‘现在请输入每组的题量’))</p><p>​    probNum = probNum * len(playerPoints)</p><p>​    if(probNum &gt; len(orinArr)):</p><p>​        print(‘题库题量不足！当前仅剩’, len(orinArr), ‘题’)</p><p>​    else:</p><p>​        arr = random.sample(orinArr, probNum)</p><p>​        for a in arr:</p><p>​            orinArr.remove(a)</p><p>​        </p><p>​        while True:</p><p>​            print(‘输入start开始’)</p><p>​            if(input() == ‘start’):</p><p>​                break</p><p>​        for a in arr:</p><p>​            # print(a)</p><p>​            for i in range(len(a)):</p><p>​                print(a[i], end=’ ‘)</p><p>​                time.sleep(0.5)</p><p>​            print()</p><p>​            while True:</p><p>​                print(‘输入回车显示下一题’)</p><p>​                if(input() == ‘’):</p><p>​                    break</p><p>​    return orinArr</p><p>def printCmds():</p><p>​    print(‘命令\t\t作用’)</p><p>​    print(‘show\t\t查看积分列表’)</p><p>​    print(‘modPoint\t增加或减少积分’)</p><p>​    print(‘pag\t\t你画我猜游戏’)</p><p>​    print(‘help\t\t查看所有命令和用法’)</p><p>​    print(‘endGame\t\t退出程序’)</p><p>​    print(‘\n’)</p><p>playerNum = int(input(‘please input the num of players\n’))</p><p>print()</p><p>players = [n for n in range(playerNum)]</p><p>playerPoints = {}</p><p>for i in range(playerNum):</p><p>​    print(i+1, ‘player name’)</p><p>​    players[i] = input()</p><p>​    playerPoints[players[i]] = 0</p><p>print(‘\n’)</p><p>file1 = open(‘./paintAndGuess.txt’)</p><p>orinArr = file1.read().split(‘\n’)</p><p>orinArr.remove(‘’)</p><p>file1.close</p><p>while True:</p><p>​    print(‘请输入要做的事，不知道要做什么请输入help’)</p><p>​    cmd = input()</p><p>​    if(cmd == ‘endGame’):</p><p>​        break</p><p>​    elif(cmd == ‘modPoint’):</p><p>​        changePoint(playerPoints)</p><p>​    elif(cmd == ‘help’):</p><p>​        printCmds()</p><p>​    elif(cmd == ‘pag’):</p><p>​        orinArr = paintAndGuess(playerPoints, orinArr)</p><p>​    elif(cmd == ‘show’):</p><p>​        showPlayerPoints(playerPoints)</p><p>​    else:</p><p>​        print(‘命令不存在！您可以用以下合法命令’)</p><p>​        printCmds()</p><p>print(‘感谢您使用本程序’)</p><p>print(‘请多多支持我的个人博客:<a href="https://zhm-super.github.io/&#39;">https://zhm-super.github.io/&#39;</a>)</p><p>print(‘也请多多支持我的CSDN博客:<a href="https://blog.csdn.net/weixin_43916065?spm=1010.2135.3001.5113&#39;">https://blog.csdn.net/weixin_43916065?spm=1010.2135.3001.5113&#39;</a>)</p><p>print(‘输入回车退出…………’)</p><p>while True:</p><p>​    if(input() == ‘’):</p><p>​        break</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;import time&lt;/p&gt;
+&lt;p&gt;import random&lt;/p&gt;
+&lt;p&gt;def changePoint(playerPoints: dict):&lt;/p&gt;
+&lt;p&gt;​    str = input(‘输入参与者得分情况（add(sub) name point）’)&lt;/p</summary>
+      
+    
+    
+    
+    
+    <category term="python" scheme="http://example.com/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>python 学习--基础学习</title>
