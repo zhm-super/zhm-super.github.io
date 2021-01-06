@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-25T07:17:34.306Z</updated>
+  <updated>2021-01-06T13:07:33.240Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>树图区块链学习</title>
+    <link href="http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/</id>
+    <published>2021-01-06T12:24:12.000Z</published>
+    <updated>2021-01-06T13:07:33.240Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="树图区块链基本结构"><a href="#树图区块链基本结构" class="headerlink" title="树图区块链基本结构"></a>树图区块链基本结构</h1><p>1.每个区块只有一条<code>父边</code>指向父区块;</p><p>2.每个区块可能有多条<code>关联边</code>指向“happen-before” 关系的区块;</p><p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106203404464.png" alt="image-20210106203404464"></p><h2 id="确定区块链的主链"><a href="#确定区块链的主链" class="headerlink" title="确定区块链的主链"></a>确定区块链的主链</h2><p>1.从创世区块开始;</p><p>2.迭代深入选择最重的分支作为主链。</p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106203724307.png" alt="image-20210106203724307"><p>比如这个区块链中，子树A所在分支即为区块链主链。</p><h2 id="创建一个新的区块到区块链中"><a href="#创建一个新的区块到区块链中" class="headerlink" title="创建一个新的区块到区块链中"></a>创建一个新的区块到区块链中</h2><p>1.选择主链中最新的区块作为父区块;</p><p>2.对所有还未引用的区块（没有任何的入边）创建<code>引用边</code></p><p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106204741965.png" alt="image-20210106204741965"></p><h2 id="利用局部顺序确定总体顺序"><a href="#利用局部顺序确定总体顺序" class="headerlink" title="利用局部顺序确定总体顺序"></a>利用局部顺序确定总体顺序</h2><p>先是将每个区块划分到epoch中：</p><p>1.每一个主链上的块构成一个epoch;</p><p>2.每个非主链的块属于第一个在该块之后生成的主链块的epoch;</p><p>例如：</p><p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106205445962.png" alt="image-20210106205445962"></p><p><strong>确定总体顺序：</strong></p><p>1.对区块链划分epoch，区块所在epoch越早，整体顺序越靠前;</p><p>2.对每个epoch内部的区块排序，根据“happen-before” ，即<code>引用边</code>的关系;</p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106210507786.png" alt="image-20210106210507786" style="zoom:150%;"><p><strong>确定所有交易顺序：</strong></p><p>1.所有区块顺序确定后即可排出所有交易顺序;</p><p>2.去除所有交易中的冲突交易和重复交易;</p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106210721963.png" alt="image-20210106210721963" style="zoom:150%;">]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;树图区块链基本结构&quot;&gt;&lt;a href=&quot;#树图区块链基本结构&quot; class=&quot;headerlink&quot; title=&quot;树图区块链基本结构&quot;&gt;&lt;/a&gt;树图区块链基本结构&lt;/h1&gt;&lt;p&gt;1.每个区块只有一条&lt;code&gt;父边&lt;/code&gt;指向父区块;&lt;/p&gt;
+&lt;p&gt;2.每</summary>
+      
+    
+    
+    
+    
+    <category term="-区块链" scheme="http://example.com/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>密码学基础</title>

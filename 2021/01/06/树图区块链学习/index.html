@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>树图区块链学习 | zhm's blog</title><meta name="keywords" content="-区块链"><meta name="author" content="zhm"><meta name="copyright" content="zhm"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="树图区块链基本结构1.每个区块只有一条父边指向父区块; 2.每个区块可能有多条关联边指向“happen-before” 关系的区块;  确定区块链的主链1.从创世区块开始; 2.迭代深入选择最重的分支作为主链。   比如这个区块链中，子树A所在分支即为区块链主链。 创建一个新的区块到区块链中1.选择主链中最新的区块作为父区块; 2.对所有还未引用的区块（没有任何的入边）创建引用边  利用局部顺序确">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树图区块链学习">
+<meta property="og:url" content="http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="zhm&#39;s blog">
+<meta property="og:description" content="树图区块链基本结构1.每个区块只有一条父边指向父区块; 2.每个区块可能有多条关联边指向“happen-before” 关系的区块;  确定区块链的主链1.从创世区块开始; 2.迭代深入选择最重的分支作为主链。   比如这个区块链中，子树A所在分支即为区块链主链。 创建一个新的区块到区块链中1.选择主链中最新的区块作为父区块; 2.对所有还未引用的区块（没有任何的入边）创建引用边  利用局部顺序确">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png">
+<meta property="article:published_time" content="2021-01-06T12:24:12.000Z">
+<meta property="article:modified_time" content="2021-01-06T13:07:33.240Z">
+<meta property="article:author" content="zhm">
+<meta property="article:tag" content="-区块链">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":30,"languages":{"author":"作者: zhm","link":"链接: ","source":"来源: zhm's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"top-center"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-06 21:07:33'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><link rel="stylesheet" href="/css/diyStyle.css"><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="zhm's blog" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 总览</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">zhm's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 总览</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">树图区块链学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-06T12:24:12.000Z" title="发表于 2021-01-06 20:24:12">2021-01-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-06T13:07:33.240Z" title="更新于 2021-01-06 21:07:33">2021-01-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">316</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="树图区块链基本结构"><a href="#树图区块链基本结构" class="headerlink" title="树图区块链基本结构"></a>树图区块链基本结构</h1><p>1.每个区块只有一条<code>父边</code>指向父区块;</p>
+<p>2.每个区块可能有多条<code>关联边</code>指向“happen-before” 关系的区块;</p>
+<p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106203404464.png" alt="image-20210106203404464"></p>
+<h2 id="确定区块链的主链"><a href="#确定区块链的主链" class="headerlink" title="确定区块链的主链"></a>确定区块链的主链</h2><p>1.从创世区块开始;</p>
+<p>2.迭代深入选择最重的分支作为主链。</p>
+<img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106203724307.png" alt="image-20210106203724307">
+
+<p>比如这个区块链中，子树A所在分支即为区块链主链。</p>
+<h2 id="创建一个新的区块到区块链中"><a href="#创建一个新的区块到区块链中" class="headerlink" title="创建一个新的区块到区块链中"></a>创建一个新的区块到区块链中</h2><p>1.选择主链中最新的区块作为父区块;</p>
+<p>2.对所有还未引用的区块（没有任何的入边）创建<code>引用边</code></p>
+<p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106204741965.png" alt="image-20210106204741965"></p>
+<h2 id="利用局部顺序确定总体顺序"><a href="#利用局部顺序确定总体顺序" class="headerlink" title="利用局部顺序确定总体顺序"></a>利用局部顺序确定总体顺序</h2><p>先是将每个区块划分到epoch中：</p>
+<p>1.每一个主链上的块构成一个epoch;</p>
+<p>2.每个非主链的块属于第一个在该块之后生成的主链块的epoch;</p>
+<p>例如：</p>
+<p><img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106205445962.png" alt="image-20210106205445962"></p>
+<p><strong>确定总体顺序：</strong></p>
+<p>1.对区块链划分epoch，区块所在epoch越早，整体顺序越靠前;</p>
+<p>2.对每个epoch内部的区块排序，根据“happen-before” ，即<code>引用边</code>的关系;</p>
+<img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106210507786.png" alt="image-20210106210507786" style="zoom:150%;">
+
+<p><strong>确定所有交易顺序：</strong></p>
+<p>1.所有区块顺序确定后即可排出所有交易顺序;</p>
+<p>2.去除所有交易中的冲突交易和重复交易;</p>
+<img src="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/image-20210106210721963.png" alt="image-20210106210721963" style="zoom:150%;"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">zhm</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/">http://example.com/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">zhm's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">-区块链</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2020/12/25/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">密码学基础</div></div></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">zhm</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/zhm-super"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zhm-super" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2418355158@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a><a class="social-icon" href="https://blog.csdn.net/weixin_43916065?spm=1010.2135.3001.5113" target="_blank" title="CSDN"><i class="fab Example of telegram fa-telegram"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">请各位大佬赐教</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">树图区块链基本结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E5%8C%BA%E5%9D%97%E9%93%BE%E7%9A%84%E4%B8%BB%E9%93%BE"><span class="toc-number">1.1.</span> <span class="toc-text">确定区块链的主链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%8C%BA%E5%9D%97%E5%88%B0%E5%8C%BA%E5%9D%97%E9%93%BE%E4%B8%AD"><span class="toc-number">1.2.</span> <span class="toc-text">创建一个新的区块到区块链中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%B1%80%E9%83%A8%E9%A1%BA%E5%BA%8F%E7%A1%AE%E5%AE%9A%E6%80%BB%E4%BD%93%E9%A1%BA%E5%BA%8F"><span class="toc-number">1.3.</span> <span class="toc-text">利用局部顺序确定总体顺序</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/" title="树图区块链学习"><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="树图区块链学习"/></a><div class="content"><a class="title" href="/2021/01/06/%E6%A0%91%E5%9B%BE%E5%8C%BA%E5%9D%97%E9%93%BE%E5%AD%A6%E4%B9%A0/" title="树图区块链学习">树图区块链学习</a><time datetime="2021-01-06T12:24:12.000Z" title="发表于 2021-01-06 20:24:12">2021-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/25/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="密码学基础"><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="密码学基础"/></a><div class="content"><a class="title" href="/2020/12/25/%E5%AF%86%E7%A0%81%E5%AD%A6%E5%9F%BA%E7%A1%80/" title="密码学基础">密码学基础</a><time datetime="2020-12-25T06:11:45.000Z" title="发表于 2020-12-25 14:11:45">2020-12-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/21/nodejs%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="nodejs实现http服务器"><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="nodejs实现http服务器"/></a><div class="content"><a class="title" href="/2020/12/21/nodejs%E5%AE%9E%E7%8E%B0http%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="nodejs实现http服务器">nodejs实现http服务器</a><time datetime="2020-12-21T06:27:56.000Z" title="发表于 2020-12-21 14:27:56">2020-12-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/19/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" title="Go语言学习"><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Go语言学习"/></a><div class="content"><a class="title" href="/2020/12/19/Go%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0/" title="Go语言学习">Go语言学习</a><time datetime="2020-12-19T10:44:06.000Z" title="发表于 2020-12-19 18:44:06">2020-12-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2020/12/17/python%E5%AE%9E%E7%8E%B0%E5%9B%A2%E9%98%9F%E6%B8%B8%E6%88%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="python实现团队游戏小程序"><img src="https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="python实现团队游戏小程序"/></a><div class="content"><a class="title" href="/2020/12/17/python%E5%AE%9E%E7%8E%B0%E5%9B%A2%E9%98%9F%E6%B8%B8%E6%88%8F%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="python实现团队游戏小程序">python实现团队游戏小程序</a><time datetime="2020-12-17T10:00:11.000Z" title="发表于 2020-12-17 18:00:11">2020-12-17</time></div></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/blogimg/picbed@master/2020/04/11/7112e09b00528b3ed015f91ce0176408.png)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By zhm</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to <a target="_blank" rel="noopener" href="https://zhm-super.github.io/">my blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config_change',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  if (typeof gtag === 'function') {
+    gtag('config', '', {'page_path': window.location.pathname});
+  }
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})</script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https') {
+    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
